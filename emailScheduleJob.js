@@ -7,17 +7,24 @@ rule.second = 10;
 
 export const emailScheduleJob = schedule.scheduleJob(rule, async function () {
   try {
-    const vocabularies = await vocabularyActions.getVocabuliaries();
-    const emailData = {
-      to: "shahali.arya@gmail.com", // Change to your recipient
-      from: "arya.shaw.90@gmail.com", // Change to your verified sender
-      subject: "Sending with SendGrid is Fun",
-      text: "and easy to do anywhere, even with Node.js",
-      html: JSON.stringify(vocabularies),
-    };
-    EmailService.sendEmail(emailData).catch((err) => {
-      console.error(err);
-    });
+    await vocabularyActions
+      .getVocabuliaries()
+      .toArray(function (err, response) {
+        if (err) {
+          console.error(err);
+        } else {
+          const emailData = {
+            to: "shahali.arya@gmail.com", // Change to your recipient
+            from: "arya.shaw.90@gmail.com", // Change to your verified sender
+            subject: "Sending with SendGrid is Fun",
+            text: "and easy to do anywhere, even with Node.js",
+            html: JSON.stringify(response),
+          };
+          EmailService.sendEmail(emailData).catch((err) => {
+            console.error(err);
+          });
+        }
+      });
   } catch (err) {
     console.error(err);
   }
