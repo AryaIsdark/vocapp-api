@@ -2,6 +2,10 @@ import { Router } from "express";
 import { db } from "../app";
 import { ObjectId } from "mongodb";
 import * as actions from "../db/vocabularies/actions";
+import * as EmailService from "../services/EmailService";
+
+const formatEmailHTML = (data) =>
+  data.forEach((item) => `<b>${item.wordId}</b>: ${item.definition}`);
 
 const router = Router();
 
@@ -15,6 +19,13 @@ router.get("/", async (req, res) => {
         data: err,
       });
     }
+    EmailService.sendEmail({
+      to: "shahali.arya@gmail.com", // Change to your recipient
+      from: "arya.shaw.90@gmail.com", // Change to your verified sender
+      subject: "Sending with SendGrid is Fun",
+      text: "and easy to do anywhere, even with Node.js",
+      html: `<div style={background:red}>${formatEmailHTML(response)}</div>`,
+    });
     return res.status(200).send({
       success: "true",
       message: "",
