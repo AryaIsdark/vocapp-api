@@ -1,6 +1,4 @@
 import { Router } from "express";
-import { db } from "../app";
-import { ObjectId } from "mongodb";
 import * as actions from "../db/vocabularies/actions";
 
 const router = Router();
