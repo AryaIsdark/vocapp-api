@@ -16,7 +16,7 @@ export const dbClient = new faunadb.Client({
 
 export const q = faunadb.query;
 
-// emailScheduleJob.invoke();
+emailScheduleJob.invoke();
 
 app.use(cors());
 app.use(bodyParser.json());
