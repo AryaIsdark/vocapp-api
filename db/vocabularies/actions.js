@@ -7,7 +7,7 @@ export const getVocabuliaries = () => {
     .find(query)
     .toArray(function (err, response) {
       if (err) {
-        return "";
+        return "error";
       }
       return response;
     });
