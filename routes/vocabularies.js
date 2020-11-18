@@ -33,7 +33,7 @@ router.post("/", async (req, res) => {
         data: err,
       });
     })
-    .then((respone) => {
+    .then((response) => {
       return res.status(200).send({
         success: "true",
         message: "vocabulary was created",
