@@ -1,14 +1,22 @@
-import { db } from "../../app";
+import mongodb from "mongodb";
+import dotenv from "dotenv";
+dotenv.config();
+
+const connnectionString = process.env.DB_CONNECTION_STRING;
+export let db;
+
+mongodb.connect(
+  connnectionString,
+  { useNewUrlParser: true, useUnifiedTopology: true },
+  function (err, client) {
+    if (client) {
+      db = client.db();
+    }
+  }
+);
 
 export const getVocabuliaries = () => {
   var query = { groupId: "5fb0380d5a979b36aaadf915" };
 
-  db.collection("vocabularies")
-    .find(query)
-    .toArray(function (err, response) {
-      if (err) {
-        return "error";
-      }
-      return response;
-    });
+  return db.collection("vocabularies").find(query);
 };

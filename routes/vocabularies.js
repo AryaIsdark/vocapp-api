@@ -1,29 +1,26 @@
 import { Router } from "express";
 import { db } from "../app";
 import { ObjectId } from "mongodb";
+import * as actions from "../db/vocabularies/actions";
 
 const router = Router();
 
 //GET:api/v1/vocabularies/
 router.get("/", async (req, res) => {
-  var query = { groupId: "5fb0380d5a979b36aaadf915" };
-
-  db.collection("vocabularies")
-    .find(query)
-    .toArray(function (err, response) {
-      if (err) {
-        return res.status(400).send({
-          success: "false",
-          message: "",
-          data: err,
-        });
-      }
-      return res.status(200).send({
-        success: "true",
+  await actions.getVocabuliaries().toArray(function (err, response) {
+    if (err) {
+      return res.status(400).send({
+        success: "false",
         message: "",
-        data: response,
+        data: err,
       });
+    }
+    return res.status(200).send({
+      success: "true",
+      message: "",
+      data: response,
     });
+  });
 });
 
 //POST:api/v1/vocabularies/
