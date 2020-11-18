@@ -23,9 +23,9 @@ export const emailScheduleJob = schedule.scheduleJob(rule, async function () {
             text: "and easy to do anywhere, even with Node.js",
             html: `<div>${formatEmailHTML(response)}</div>`,
           };
-          EmailService.sendEmail(emailData).catch((err) => {
-            console.error(err);
-          });
+          // EmailService.sendEmail(emailData).catch((err) => {
+          //   console.error(err);
+          // });
         }
       });
   } catch (err) {
