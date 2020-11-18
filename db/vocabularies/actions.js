@@ -25,11 +25,12 @@ export const getVocabulary = (id) => {
   return db.collection("vocabularies").findOne(query);
 };
 
-export const createVocabulary = (wordId, definition) {
-  const newLocal = {
+export const createVocabulary = (wordId, definition) => {
+  const newItem = {
     wordId: wordId,
     definition: definition,
     createdAt: Date.now(),
     groupId: "5fb0380d5a979b36aaadf915",
   };
-}
+  return db.collection("vocabularies").insertOne(newItem);
+};
