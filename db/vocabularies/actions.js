@@ -1,4 +1,4 @@
-import mongodb from "mongodb";
+import mongodb, { ObjectId } from "mongodb";
 import dotenv from "dotenv";
 dotenv.config();
 
