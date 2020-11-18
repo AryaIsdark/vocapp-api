@@ -26,33 +26,28 @@ router.get("/", async (req, res) => {
 //POST:api/v1/vocabularies/
 router.post("/", async (req, res) => {
   const { body } = req;
-  const newVocav = {
-    wordId: body.wordId,
-    definition: body.definition,
-    createdAt: Date.now(),
-    groupId: "5fb0380d5a979b36aaadf915",
-  };
-  db.collection("vocabularies").insertOne(newVocav, function (err, response) {
-    if (err) {
+  actions
+    .createVocabulary(body.wordId, body.definition)
+    .catch((err) => {
       return res.status(400).send({
         success: "false",
         message: "",
         data: err,
       });
-    }
-    return res.status(200).send({
-      success: "true",
-      message: "vocabulary was created",
-      data: response.insertedId,
+    })
+    .then((respone) => {
+      return res.status(200).send({
+        success: "true",
+        message: "vocabulary was created",
+        data: response.insertedId,
+      });
     });
-  });
 });
 
 //GET:api/v1/vocabularies/:id
 router.get("/:id", async (req, res) => {
-  var query = { _id: ObjectId(req.params.id) };
-  db.collection("vocabularies")
-    .findOne(query)
+  actions
+    .getVocabulary(req.params.id)
     .catch((err) => {
       return res.status(400).send({
         success: "false",

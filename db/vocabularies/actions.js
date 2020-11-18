@@ -17,6 +17,19 @@ mongodb.connect(
 
 export const getVocabuliaries = () => {
   var query = { groupId: "5fb0380d5a979b36aaadf915" };
-
   return db.collection("vocabularies").find(query);
 };
+
+export const getVocabulary = (id) => {
+  var query = { _id: ObjectId(id) };
+  return db.collection("vocabularies").findOne(query);
+};
+
+export const createVocabulary = (wordId, definition) {
+  const newLocal = {
+    wordId: wordId,
+    definition: definition,
+    createdAt: Date.now(),
+    groupId: "5fb0380d5a979b36aaadf915",
+  };
+}
