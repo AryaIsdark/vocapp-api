@@ -15,8 +15,7 @@ mongodb.connect(
   }
 );
 
-export const getVocabuliaries = () => {
-  var query = { groupId: "5fb0380d5a979b36aaadf915" };
+export const getVocabuliaries = (query) => {
   return db.collection("vocabularies").find(query);
 };
 
@@ -25,12 +24,16 @@ export const getVocabulary = (id) => {
   return db.collection("vocabularies").findOne(query);
 };
 
-export const createVocabulary = (wordId, definition) => {
+export const createVocabulary = (wordId, definition, groupId) => {
   const newItem = {
     wordId: wordId,
     definition: definition,
     createdAt: Date.now(),
-    groupId: "5fb0380d5a979b36aaadf915",
+    groupId: groupId,
   };
-  return db.collection("vocabularies").insertOne(newItem);
+  try {
+    return db.collection("vocabularies").insertOne(newItem);
+  } catch (err) {
+    console.error(err);
+  }
 };

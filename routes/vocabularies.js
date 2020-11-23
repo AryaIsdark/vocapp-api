@@ -5,27 +5,29 @@ const router = Router();
 
 //GET:api/v1/vocabularies/
 router.get("/", async (req, res) => {
-  actions.getVocabuliaries().toArray(function (err, response) {
-    if (err) {
-      return res.status(400).send({
-        success: "false",
+  actions
+    .getVocabuliaries({ groupId: req.query.groupId })
+    .toArray(function (err, response) {
+      if (err) {
+        return res.status(400).send({
+          success: "false",
+          message: "",
+          data: err,
+        });
+      }
+      return res.status(200).send({
+        success: "true",
         message: "",
-        data: err,
+        data: response,
       });
-    }
-    return res.status(200).send({
-      success: "true",
-      message: "",
-      data: response,
     });
-  });
 });
 
 //POST:api/v1/vocabularies/
 router.post("/", async (req, res) => {
   const { body } = req;
   actions
-    .createVocabulary(body.wordId, body.definition)
+    .createVocabulary(body.wordId, body.definition, body.groupId)
     .catch((err) => {
       return res.status(400).send({
         success: "false",
