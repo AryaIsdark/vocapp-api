@@ -6,7 +6,7 @@ import routes from "./routes";
 import dotenv from "dotenv";
 dotenv.config();
 
-import { emailScheduleJob } from "./emailScheduleJob";
+// import { emailScheduleJob } from "./emailScheduleJob";
 
 const app = express();
 
@@ -16,7 +16,7 @@ export const dbClient = new faunadb.Client({
 
 export const q = faunadb.query;
 
-emailScheduleJob.invoke();
+// emailScheduleJob.invoke();
 
 app.use(cors());
 app.use(bodyParser.json());
