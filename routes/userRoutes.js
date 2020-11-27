@@ -38,15 +38,21 @@ router.post("/authenticate", async (req, res) => {
       return res.status(400).send({
         success: "false",
         message: "login failed",
-        data: "",
+        data: err,
       });
     })
     .then((response) => {
-      return res.status(200).send({
-        success: "true",
-        message: "login success",
-        data: response,
-      });
+      if (response) {
+        return res.status(200).send({
+          success: "true",
+          message: "login success",
+          data: response,
+        });
+      } else
+        return res.status(400).send({
+          success: "false",
+          message: "login faild",
+        });
     });
 });
 
