@@ -34,7 +34,13 @@ export const getUser = async (id) => {
   return user;
 };
 
-export const createUser = (name, lastName, email, avatar, password) => {
+export const createUser = async (
+  name,
+  lastName,
+  email,
+  avatar = "",
+  password
+) => {
   const newItem = {
     name: name,
     lastName: lastName,
@@ -57,7 +63,7 @@ export const createUser = (name, lastName, email, avatar, password) => {
         });
     })
     .catch((error) => {
-      console.log("error");
+      console.log("something went wrong when inserting user");
       return error;
     });
 };

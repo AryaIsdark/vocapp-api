@@ -8,17 +8,18 @@ const router = Router();
 router.post("/", async (req, res) => {
   const { body } = req;
   try {
-    const response = actions.createUser(
+    const response = await actions.createUser(
       body.name,
       body.lastName,
       body.email,
       body.avatar,
       body.password
     );
+
     return res.status(200).send({
       success: "true",
       message: "user was created",
-      data: response.insertedId,
+      data: response && response.insertedId, //no working,
     });
   } catch (err) {
     return res.status(400).send({
